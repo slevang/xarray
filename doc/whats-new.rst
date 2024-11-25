@@ -24,6 +24,9 @@ New Features
 - Better support wrapping additional array types (e.g. ``cupy`` or ``jax``) by calling generalized
   duck array operations throughout more xarray methods. (:issue:`7848`, :pull:`9798`).
   By `Sam Levang <https://github.com/slevang>`_.
+- Add convenience methods ``as_array_type`` and ``is_array_type`` for converting wrapped
+  data to other duck array types. (:issue:`7848`, :pull:`9798`).
+  By `Sam Levang <https://github.com/slevang>`_.
 
 
 Breaking changes
@@ -88,10 +91,6 @@ New Features
   By `Sam Levang <https://github.com/slevang>`_.
 - Speed up loading of large zarr stores using dask arrays. (:issue:`8902`)
   By `Deepak Cherian <https://github.com/dcherian>`_.
-- Make more xarray methods fully compatible with duck array types, and introduce new
-  ``as_array_type`` and ``is_array_type`` methods for converting wrapped data to other
-  duck array types. (:issue:`7848`, :pull:`9798`).
-  By `Sam Levang <https://github.com/slevang>`_.
 
 Breaking Changes
 ~~~~~~~~~~~~~~~~
