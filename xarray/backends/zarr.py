@@ -1109,6 +1109,13 @@ class ZarrStore(AbstractWritableDataStore):
     ) -> ZarrArray:
         if coding.strings.check_vlen_dtype(dtype) is str:
             dtype = str
+            # Zarr automatically sets the vlen-utf8 filter, and including it
+            # explicitly causes TypeErrors on zarr<3 when roundtripping.
+            filters = encoding.get("filters")
+            if filters:
+                encoding["filters"] = [
+                    f for f in filters if getattr(f, "codec_id", None) != "vlen-utf8"
+                ]
 
         if self._write_empty is not None:
             if (

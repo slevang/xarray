@@ -3807,6 +3807,16 @@ class ZarrBase(CFEncodedBase):
             # ``raise_on_invalid=vn in check_encoding_set`` line in zarr.py
             # ds.foo.encoding["fill_value"] = fv
 
+    def test_roundtrip_string_coordinates(self) -> None:
+        # Regression test for GH3476
+        expected = Dataset(
+            {"foo": (("x",), [1, 2, 3])},
+            coords={"x": np.array(["a", "b", "c"], dtype=object)},
+        )
+        with self.roundtrip(expected) as ds:
+            with self.roundtrip(ds) as actual:
+                assert_identical(expected, actual)
+
 
 @requires_zarr
 @pytest.mark.skipif(
